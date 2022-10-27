@@ -154,16 +154,12 @@ function reverseDate(){
 //BONUS 2: incremento e decremento il numero di like al click del 'Mi piace'
 for(let i=0;i<posts.length;i++){
     if(posts[i].author.image==null){
-        let nameArray=posts[i].author.name.split(" ");
-        console.log(nameArray);
+        let nameArray=posts[i].author.name.split(" "); 
         let capitalArray=[];
         capitalArray.push(nameArray[0].charAt(0));
         capitalArray.push(nameArray[1].charAt(0));
-        console.log(capitalArray);
         const capitalLetters= capitalArray.join("");
-        console.log(capitalLetters);
         const imageSpaces = document.getElementsByClassName('post-meta__icon');
-        console.log(imageSpaces);
         imageSpaces[i].innerHTML = `${capitalLetters}`;
         imageSpaces[i].classList.add('profile-pic-default');
 }}
