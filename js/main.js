@@ -121,6 +121,7 @@ posts.forEach(element => {
 //BONUS 1 e 3: incremento e decremento il numero di like al click del 'Mi piace'
 const likeCounters = document.getElementsByClassName('js-likes-counter');
 const likeButtons=document.getElementsByClassName('js-like-button');
+
 let likedPosts = [];
 
 for(let i=0;i<likeButtons.length;i++){
@@ -151,7 +152,7 @@ function reverseDate(){
     });
 }
 
-//BONUS 2: incremento e decremento il numero di like al click del 'Mi piace'
+//BONUS 2: sostituzione con iniziali in caso di mancata foto
 for(let i=0;i<posts.length;i++){
     if(posts[i].author.image==null){
         let nameArray=posts[i].author.name.split(" "); 
