@@ -13,7 +13,7 @@ Gestire l’assenza dell’immagine profilo con un elemento di fallback che cont
 Al click su un pulsante “Mi Piace” di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 */
-console.log('ciao');
+
 
 const posts = [
   {
@@ -86,7 +86,7 @@ function reverseDate(){
     });
 }
 
-reverseDate();
+
 
 
 posts.forEach(element => {
@@ -121,26 +121,41 @@ posts.forEach(element => {
                 </div> 
             </div>            
         `
-        console.log(postTag);
+        reverseDate();
 
         const newPostDiv = document.createElement('div');
         newPostDiv.className="post";
         newPostDiv.innerHTML = postTag;
-        container.append(newPostDiv);
-   
+        container.append(newPostDiv); 
 });
 
 
+//BONUS: incremento e decremento il numero di like al click del 'Mi piace'
 const likeCounters = document.getElementsByClassName('js-likes-counter');
 const likeButtons=document.getElementsByClassName('js-like-button');
+let likedPosts = [];
 
-
-//BONUS: incremento il numero di like al click del 'Mi piace'
 for(let i=0;i<likeButtons.length;i++){
     likeButtons[i].addEventListener('click', function(){
-        likeButtons[i].classList.add('like-button--liked');
-        posts[i].likes +=1;
-        likeCounters[i].innerHTML=posts[i].likes
+        if(!(likedPosts.includes(posts[i].id))){
+            likeButtons[i].classList.add('like-button--liked');
+            likedPosts.push(posts[i].id);
+            posts[i].likes +=1;
+            likeCounters[i].innerHTML=posts[i].likes;
+            console.log('aggiunto: aggiornamento likedposts '+likedPosts);
+            console.log(likedPosts);
+        }else{
+            likeButtons[i].classList.remove('like-button--liked');
+            posts[i].likes -=1;
+            likeCounters[i].innerHTML=posts[i].likes;
+            let postIndexInLikedArr = likedPosts.indexOf((posts[i].id));
+            likedPosts.splice(postIndexInLikedArr,1);
+            console.log('tolto: aggiornamento likedposts '+likedPosts);
+            console.log(likedPosts);
+
+            
+        }
+        
     })
 }
 
