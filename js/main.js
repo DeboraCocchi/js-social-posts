@@ -88,6 +88,7 @@ function reverseDate(){
 
 reverseDate();
 
+
 posts.forEach(element => {
     const postTag =
         `
@@ -115,7 +116,7 @@ posts.forEach(element => {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                        Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -126,9 +127,23 @@ posts.forEach(element => {
         newPostDiv.className="post";
         newPostDiv.innerHTML = postTag;
         container.append(newPostDiv);
-        
-
-        
+   
 });
+
+
+const likeCounters = document.getElementsByClassName('js-likes-counter');
+const likeButtons=document.getElementsByClassName('js-like-button');
+
+
+//BONUS: incremento il numero di like al click del 'Mi piace'
+for(let i=0;i<likeButtons.length;i++){
+    likeButtons[i].addEventListener('click', function(){
+        likeButtons[i].classList.add('like-button--liked');
+        posts[i].likes +=1;
+        likeCounters[i].innerHTML=posts[i].likes
+    })
+}
+
+
     
 
