@@ -75,21 +75,9 @@ const posts = [
 
 const container=document.getElementById('container');
 
-function reverseDate(){
-    posts.forEach(element => {
-        const newDateArray= element.created.split("-");
-        [newDateArray[0], newDateArray[1], newDateArray[2]] = [newDateArray[2], newDateArray[1], newDateArray[0]];
-        let newDate = newDateArray.join("-");
-        element["newDate"]=newDate;
-        return newDate;
-        
-    });
-}
-
-
-
-
 posts.forEach(element => {
+    reverseDate();
+    
     const postTag =
         `
             <div class="post__header">
@@ -121,8 +109,8 @@ posts.forEach(element => {
                 </div> 
             </div>            
         `
-        reverseDate();
-
+       
+       
         const newPostDiv = document.createElement('div');
         newPostDiv.className="post";
         newPostDiv.innerHTML = postTag;
@@ -130,7 +118,7 @@ posts.forEach(element => {
 });
 
 
-//BONUS: incremento e decremento il numero di like al click del 'Mi piace'
+//BONUS 1 e 3: incremento e decremento il numero di like al click del 'Mi piace'
 const likeCounters = document.getElementsByClassName('js-likes-counter');
 const likeButtons=document.getElementsByClassName('js-like-button');
 let likedPosts = [];
@@ -142,23 +130,42 @@ for(let i=0;i<likeButtons.length;i++){
             likedPosts.push(posts[i].id);
             posts[i].likes +=1;
             likeCounters[i].innerHTML=posts[i].likes;
-            console.log('aggiunto: aggiornamento likedposts '+likedPosts);
-            console.log(likedPosts);
+            
         }else{
             likeButtons[i].classList.remove('like-button--liked');
             posts[i].likes -=1;
             likeCounters[i].innerHTML=posts[i].likes;
             let postIndexInLikedArr = likedPosts.indexOf((posts[i].id));
             likedPosts.splice(postIndexInLikedArr,1);
-            console.log('tolto: aggiornamento likedposts '+likedPosts);
-            console.log(likedPosts);
-
-            
         }
-        
     })
 }
 
+function reverseDate(){
+    posts.forEach(element => {
+        const newDateArray= element.created.split("-");
+        [newDateArray[0], newDateArray[1], newDateArray[2]] = [newDateArray[2], newDateArray[1], newDateArray[0]];
+        let newDate = newDateArray.join("-");
+        element["newDate"]=newDate;
+        return newDate;
+    });
+}
 
-    
+//BONUS 2: incremento e decremento il numero di like al click del 'Mi piace'
+for(let i=0;i<posts.length;i++){
+    if(posts[i].author.image==null){
+        let nameArray=posts[i].author.name.split(" ");
+        console.log(nameArray);
+        let capitalArray=[];
+        capitalArray.push(nameArray[0].charAt(0));
+        capitalArray.push(nameArray[1].charAt(0));
+        console.log(capitalArray);
+        const capitalLetters= capitalArray.join("");
+        console.log(capitalLetters);
+        const imageSpaces = document.getElementsByClassName('post-meta__icon');
+        console.log(imageSpaces);
+        imageSpaces[i].innerHTML = `${capitalLetters}`;
+        imageSpaces[i].classList.add('profile-pic-default');
+}}
+
 
